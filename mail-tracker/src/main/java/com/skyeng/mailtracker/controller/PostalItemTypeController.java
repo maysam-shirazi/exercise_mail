@@ -14,12 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * The type Postal item type controller.
+ */
 @RestController
 @RequestMapping("/postal-item-types")
 public class PostalItemTypeController {
+    /**
+     * The Service.
+     */
     @Autowired
     PostalItemTypeService service;
+    /**
+     * The Logger.
+     */
     Logger logger = LoggerFactory.getLogger(PostalItemTypeController.class);
+
+    /**
+     * Gets postal item types.
+     *
+     * @return the postal item types
+     */
     @GetMapping
     public ResponseEntity<List<ItemType>> getPostalItemTypes() {
         List<ItemType> list = service.getPostalItemTypes();

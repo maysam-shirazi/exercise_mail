@@ -12,17 +12,40 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * The type Event controller.
+ */
 @RestController
 @RequestMapping("/event")
 public class EventController {
+    /**
+     * The Service.
+     */
     @Autowired
     EventService service;
+    /**
+     * The Logger.
+     */
     Logger logger = LoggerFactory.getLogger(EventController.class);
+
+    /**
+     * Gets postal item events.
+     *
+     * @param itemid the itemid
+     * @return the postal item events
+     */
     @GetMapping
     public ResponseEntity<List<Event>> getPostalItemEvents(@RequestParam Long itemid) {
         var list = service.getEvents(itemid);
         return new ResponseEntity<List<Event>>(list, new HttpHeaders(), HttpStatus.OK);
     }
+
+    /**
+     * Gets postal item latest event.
+     *
+     * @param itemid the itemid
+     * @return the postal item latest event
+     */
     @GetMapping("/item-status")
     public ResponseEntity<Event> getPostalItemLatestEvent(@RequestParam Long itemid) {
         var event = service.getLatestEvent(itemid);

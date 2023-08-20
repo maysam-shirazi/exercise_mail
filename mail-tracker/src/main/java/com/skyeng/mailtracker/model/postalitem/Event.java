@@ -1,5 +1,6 @@
 package com.skyeng.mailtracker.model.postalitem;
 
+import com.skyeng.mailtracker.model.PostOffice;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,8 @@ public class Event {
     private Date eventTime;
     @ManyToOne
     private EventType type;
+    @ManyToOne
+    private PostOffice postOffice;
 
 
 }

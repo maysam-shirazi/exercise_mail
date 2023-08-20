@@ -14,12 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * The type Event type controller.
+ */
 @RestController
 @RequestMapping("/event-types")
 public class EventTypeController {
+    /**
+     * The Service.
+     */
     @Autowired
     EventTypeService service;
+    /**
+     * The Logger.
+     */
     Logger logger = LoggerFactory.getLogger(EventTypeController.class);
+
+    /**
+     * Gets all event types.
+     *
+     * @return the all event types
+     */
     @GetMapping
     public ResponseEntity<List<EventType>> getAllEventTypes() {
         var list = service.getEventTypes();

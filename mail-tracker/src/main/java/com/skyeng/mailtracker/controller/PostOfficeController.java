@@ -14,12 +14,27 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * The type Post office controller.
+ */
 @RestController
 @RequestMapping("/post-offices")
 public class PostOfficeController {
+    /**
+     * The Service.
+     */
     @Autowired
     PostOfficeService service;
+    /**
+     * The Logger.
+     */
     Logger logger = LoggerFactory.getLogger(PostOfficeController.class);
+
+    /**
+     * Gets post offices.
+     *
+     * @return the post offices
+     */
     @GetMapping
     public ResponseEntity<List<PostOffice>> getPostOffices() {
         var list = service.getPostOffices();

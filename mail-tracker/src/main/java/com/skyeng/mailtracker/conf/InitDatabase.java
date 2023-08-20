@@ -1,6 +1,9 @@
 package com.skyeng.mailtracker.conf;
 
 
+import com.skyeng.mailtracker.model.PostOffice;
+import com.skyeng.mailtracker.model.postalitem.Item;
+import com.skyeng.mailtracker.model.postalitem.ItemType;
 import com.skyeng.mailtracker.service.PostalItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +18,7 @@ class InitDatabase {
 
     @Bean
     CommandLineRunner init(PostalItemService service) {
-/*
+
         return args -> {
             log.info("init data  " + service.register(Item.builder()
                     .recipientIndex(5432167890L)
@@ -25,8 +28,5 @@ class InitDatabase {
                     .type(ItemType.builder().id(1L)
                             .build()).build()));
         };
-
- */
-        return null;
     }
 }
