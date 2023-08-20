@@ -27,7 +27,7 @@ You can use below command to generate code coverage report:
 ```
 mvn jacoco:report
 ```
-So you can find full report in target/site/index.html path
+So you can find full report in target/site/index.html path after generate the report.*there is a generated report in mail-tracker/jacoco directory *
 
 **Deploy**
 To run the project use below command in mail-tracker path:
