@@ -76,7 +76,7 @@ class PostalItemControllerTest {
         // Setup
         // Configure PostalItemService.departure(...).
         final Item item = new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address"));
-        when(mockService.departure(0L,0L)).thenReturn(item);
+        when(mockService.departure(0L)).thenReturn(item);
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/postal-item/departure")

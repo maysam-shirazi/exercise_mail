@@ -109,14 +109,13 @@ class PostalItemServiceTest {
         val event = eventService.getLatestEvent(1L);
         Assertions.assertThat(event).isNotNull();
         Assertions.assertThat(event.getType().getId()).isEqualTo(EventType.EVENT_TYPE_ID_ARRIVED);
-    }
+    }*/
     @Test
     void testDeparture() {
         var expected =  buildItem();
         var postOffice = new PostOffice(0L, 0L, "name", "address");
-        when(postalItemRepository.findById(anyLong())).thenReturn(Optional.of(expected));
-        when(postalItemService.postOfficeService.getPostOffice(anyLong())).thenReturn(Optional.of(postOffice));
-        postalItemService.departure(1L,0L);
+        when(postalItemRepository.findById(any())).thenReturn(Optional.of(expected));
+        postalItemService.departure(1L);
         EventType eventType = new EventType(3L, "departured");
         final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), eventType,new PostOffice(0L, 0L, "name", "address")));
         when(eventRepository.findByPostalItemIdOrderByIdDesc(any())).thenReturn(events);
@@ -124,7 +123,7 @@ class PostalItemServiceTest {
         val event = eventService.getLatestEvent(1L);
         Assertions.assertThat(event).isNotNull();
         Assertions.assertThat(event.getType().getId()).isEqualTo(EventType.EVENT_TYPE_ID_DEPARTED);
-    }*/
+    }
     @Test
     void testDeliver() {
         var expected =  buildItem();

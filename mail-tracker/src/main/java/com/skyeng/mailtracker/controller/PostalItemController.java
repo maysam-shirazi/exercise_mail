@@ -59,7 +59,7 @@ public class PostalItemController {
      */
     @PostMapping("/departure")
     public ResponseEntity<Item> departure(@RequestBody ItemMinimal item) {
-        var pi = service.departure(item.getItemId(),item.getPostOfficeId());
+        var pi = service.departure(item.getItemId());
         return new ResponseEntity<Item>(pi, new HttpHeaders(), HttpStatus.OK);
     }
 

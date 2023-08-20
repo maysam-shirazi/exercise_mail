@@ -76,14 +76,12 @@ public class PostalItemService {
      * @return the departured item
      */
 
-    public Item departure(long itemId,long postOfficeId) {
+    public Item departure(long itemId) {
         var item = repository.findById(itemId);
-        var postOffice = postOfficeService.getPostOffice(postOfficeId);
         logger.info("departure item: {}", itemId);
         Item pitem = null;
-        if (item.isPresent()&&postOffice.isPresent()) {
+        if (item.isPresent()) {
             pitem = item.get();
-            pitem.setPostOffice(postOffice.get());
             repository.save(pitem);
             eventService.addEvent(pitem, EventType.EVENT_TYPE_ID_DEPARTED);
         }
