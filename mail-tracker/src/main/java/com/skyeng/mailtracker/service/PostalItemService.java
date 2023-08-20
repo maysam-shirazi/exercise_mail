@@ -26,6 +26,11 @@ public class PostalItemService {
     @Autowired
     EventService eventService;
     /**
+     * The PostOffice service.
+     */
+    @Autowired
+    PostOfficeService postOfficeService;
+    /**
      * The Logger.
      */
     Logger logger = LoggerFactory.getLogger(PostalItemService.class);
@@ -49,14 +54,19 @@ public class PostalItemService {
      * @param itemId the item id
      * @return the arrived item
      */
-//TODO: add post office to arrival event
-    public Item arrival(long itemId) {
+
+    public Item arrival(long itemId,long postOfficeId) {
         var item = repository.findById(itemId);
+        var postOffice = postOfficeService.getPostOffice(postOfficeId);
         logger.info("arrival item: {}", itemId);
-        if (item.isPresent()) {
-            eventService.addEvent(item.get(), EventType.EVENT_TYPE_ID_ARRIVED);
+        Item pitem = null;
+        if (item.isPresent()&&postOffice.isPresent()) {
+            pitem = item.get();
+            pitem.setPostOffice(postOffice.get());
+            repository.save(pitem);
+            eventService.addEvent(pitem, EventType.EVENT_TYPE_ID_ARRIVED);
         }
-        return item.get();
+        return pitem;
     }
 
     /**
@@ -65,14 +75,19 @@ public class PostalItemService {
      * @param itemId the item id
      * @return the departured item
      */
-//TODO: add post office to departure event
-    public Item departure(long itemId) {
+
+    public Item departure(long itemId,long postOfficeId) {
         var item = repository.findById(itemId);
+        var postOffice = postOfficeService.getPostOffice(postOfficeId);
         logger.info("departure item: {}", itemId);
-        if (item.isPresent()) {
-            eventService.addEvent(item.get(), EventType.EVENT_TYPE_ID_DEPARTED);
+        Item pitem = null;
+        if (item.isPresent()&&postOffice.isPresent()) {
+            pitem = item.get();
+            pitem.setPostOffice(postOffice.get());
+            repository.save(pitem);
+            eventService.addEvent(pitem, EventType.EVENT_TYPE_ID_DEPARTED);
         }
-        return item.get();
+        return pitem;
     }
 
     /**

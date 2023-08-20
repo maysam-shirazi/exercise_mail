@@ -40,7 +40,7 @@ class EventControllerTest {
     void testGetPostalItemEvents() throws Exception {
         // Setup
         // Configure EventService.getEvents(...).
-        final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title")));
+        final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address")));
         when(mockService.getEvents(0L)).thenReturn(events);
 
         // Run the test
@@ -51,7 +51,7 @@ class EventControllerTest {
 
         // Verify the results
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("[{\"id\":0,\"postalItem\":{\"id\":0,\"type\":{\"id\":0,\"title\":\"title\"},\"recipientIndex\":0,\"recipientAddress\":\"recipientAddress\",\"receiverName\":\"receiverName\",\"postOffice\":{\"id\":0,\"index\":0,\"name\":\"name\",\"address\":\"address\"}},\"eventTime\":\"2019-12-31T20:30:00.000+00:00\",\"type\":{\"id\":0,\"title\":\"title\"}}]");
+        assertThat(response.getContentAsString()).isEqualTo("[{\"id\":0,\"postalItem\":{\"id\":0,\"type\":{\"id\":0,\"title\":\"title\"},\"recipientIndex\":0,\"recipientAddress\":\"recipientAddress\",\"receiverName\":\"receiverName\",\"postOffice\":{\"id\":0,\"index\":0,\"name\":\"name\",\"address\":\"address\"}},\"eventTime\":\"2019-12-31T20:30:00.000+00:00\",\"type\":{\"id\":0,\"title\":\"title\"},\"postOffice\":{\"id\":0,\"index\":0,\"name\":\"name\",\"address\":\"address\"}}]");
     }
 
     @Test
@@ -74,7 +74,7 @@ class EventControllerTest {
     void testGetPostalItemLatestEvent() throws Exception {
         // Setup
         // Configure EventService.getLatestEvent(...).
-        final Event event = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"));
+        final Event event = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address"));
         when(mockService.getLatestEvent(0L)).thenReturn(event);
 
         // Run the test
@@ -85,6 +85,6 @@ class EventControllerTest {
 
         // Verify the results
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
-        assertThat(response.getContentAsString()).isEqualTo("{\"id\":0,\"postalItem\":{\"id\":0,\"type\":{\"id\":0,\"title\":\"title\"},\"recipientIndex\":0,\"recipientAddress\":\"recipientAddress\",\"receiverName\":\"receiverName\",\"postOffice\":{\"id\":0,\"index\":0,\"name\":\"name\",\"address\":\"address\"}},\"eventTime\":\"2019-12-31T20:30:00.000+00:00\",\"type\":{\"id\":0,\"title\":\"title\"}}");
+        assertThat(response.getContentAsString()).isEqualTo("{\"id\":0,\"postalItem\":{\"id\":0,\"type\":{\"id\":0,\"title\":\"title\"},\"recipientIndex\":0,\"recipientAddress\":\"recipientAddress\",\"receiverName\":\"receiverName\",\"postOffice\":{\"id\":0,\"index\":0,\"name\":\"name\",\"address\":\"address\"}},\"eventTime\":\"2019-12-31T20:30:00.000+00:00\",\"type\":{\"id\":0,\"title\":\"title\"},\"postOffice\":{\"id\":0,\"index\":0,\"name\":\"name\",\"address\":\"address\"}}");
     }
 }

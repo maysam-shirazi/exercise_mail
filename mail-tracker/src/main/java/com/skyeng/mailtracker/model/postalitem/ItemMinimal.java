@@ -11,18 +11,19 @@ import java.util.Objects;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemMinimal {
-    private Long id;
+    private Long itemId;
+    private Long postOfficeId;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ItemMinimal that = (ItemMinimal) o;
-        return id.equals(that.id);
+        return itemId.equals(that.itemId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(itemId);
     }
 }

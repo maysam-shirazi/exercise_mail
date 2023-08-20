@@ -64,6 +64,7 @@ public class EventService {
         var event = Event.builder()
                 .eventTime(new Date())
                 .postalItem(item)
+                .postOffice(item.getPostOffice())
                 .type(eventType)
                 .build();
         logger.info("new event: {}",event);

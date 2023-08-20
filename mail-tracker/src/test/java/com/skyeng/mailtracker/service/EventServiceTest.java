@@ -32,10 +32,10 @@ class EventServiceTest {
     @Test
     void testGetEvents() {
         // Setup
-        final List<Event> expectedResult = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title")));
+        final List<Event> expectedResult = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address")));
 
         // Configure EventRepository.findByPostalItemId(...).
-        final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title")));
+        final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address")));
         when(eventServiceUnderTest.repository.findByPostalItemId(0L)).thenReturn(events);
 
         // Run the test
@@ -60,10 +60,10 @@ class EventServiceTest {
     @Test
     void testGetLatestEvent() {
         // Setup
-        final Event expectedResult = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"));
+        final Event expectedResult = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address"));
 
         // Configure EventRepository.findByPostalItemId(...).
-        final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title")));
+        final List<Event> events = List.of(new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address")));
         when(eventServiceUnderTest.repository.findByPostalItemIdOrderByIdDesc(0L)).thenReturn(events);
 
         // Run the test
@@ -88,11 +88,11 @@ class EventServiceTest {
     @Test
     void testAddEvent() {
         // Setup
-        final Event expectedResult = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"));
+        final Event expectedResult = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address"));
 
         final Item item = new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address"));
         // Configure EventRepository.save(...).
-        Event event = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"));
+        Event event = new Event(0L, new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address")), new GregorianCalendar(2020, Calendar.JANUARY, 1).getTime(), new EventType(0L, "title"),new PostOffice(0L, 0L, "name", "address"));
         when(eventServiceUnderTest.repository.save(any(Event.class))).thenReturn(event);
 
         // Run the test

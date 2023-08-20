@@ -47,7 +47,7 @@ public class PostalItemController {
      */
     @PostMapping("/arrival")
     public ResponseEntity<Item> arrival(@RequestBody ItemMinimal item) {
-        var pi = service.arrival(item.getId());
+        var pi = service.arrival(item.getItemId(),item.getPostOfficeId());
         return new ResponseEntity<Item>(pi, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -59,7 +59,7 @@ public class PostalItemController {
      */
     @PostMapping("/departure")
     public ResponseEntity<Item> departure(@RequestBody ItemMinimal item) {
-        var pi = service.departure(item.getId());
+        var pi = service.departure(item.getItemId(),item.getPostOfficeId());
         return new ResponseEntity<Item>(pi, new HttpHeaders(), HttpStatus.OK);
     }
 
@@ -71,7 +71,7 @@ public class PostalItemController {
      */
     @PostMapping("/deliver")
     public ResponseEntity<Item> deliver(@RequestBody ItemMinimal item) {
-        var pi = service.deliver(item.getId());
+        var pi = service.deliver(item.getItemId());
         return new ResponseEntity<Item>(pi, new HttpHeaders(), HttpStatus.OK);
     }
 

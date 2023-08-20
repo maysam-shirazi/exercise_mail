@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PostOfficeService {
@@ -17,4 +18,8 @@ public class PostOfficeService {
         return list.size()>0?list:new ArrayList<PostOffice>();
     }
 
+    public Optional<PostOffice> getPostOffice(long postOfficeId) {
+        return repository.findById(postOfficeId);
+
+    }
 }

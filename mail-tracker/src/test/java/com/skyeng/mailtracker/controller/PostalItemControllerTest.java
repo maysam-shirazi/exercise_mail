@@ -58,11 +58,11 @@ class PostalItemControllerTest {
         // Setup
         // Configure PostalItemService.arrival(...).
         final Item item = new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address"));
-        when(mockService.arrival(0L)).thenReturn(item);
+        when(mockService.arrival(0L,0L)).thenReturn(item);
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/postal-item/arrival")
-                .content("{\"id\":0}").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"itemId\":0,\"postOfficeId\":0}").contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -76,11 +76,11 @@ class PostalItemControllerTest {
         // Setup
         // Configure PostalItemService.departure(...).
         final Item item = new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address"));
-        when(mockService.departure(0L)).thenReturn(item);
+        when(mockService.departure(0L,0L)).thenReturn(item);
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/postal-item/departure")
-                .content("{\"id\":0}").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"itemId\":0,\"postOfficeId\":0}").contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
@@ -94,11 +94,11 @@ class PostalItemControllerTest {
         // Setup
         // Configure PostalItemService.departure(...).
         final Item item = new Item(0L, new ItemType(0L, "title"), 0L, "recipientAddress", "receiverName", new PostOffice(0L, 0L, "name", "address"));
-        when(mockService.departure(0L)).thenReturn(item);
+        when(mockService.deliver(0L)).thenReturn(item);
 
         // Run the test
         final MockHttpServletResponse response = mockMvc.perform(post("/postal-item/deliver")
-                .content("{\"id\":0}").contentType(MediaType.APPLICATION_JSON)
+                .content("{\"itemId\":0,\"postOfficeId\":0}").contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
