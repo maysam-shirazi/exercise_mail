@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>EventController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mail-tracker</a> &gt; <a href="index.source.html" class="el_package">com.skyeng.mailtracker.controller</a> &gt; <span class="el_source">EventController.java</span></div><h1>EventController.java</h1><pre class="source lang-java linenums">package com.skyeng.mailtracker.controller;
+
+import com.skyeng.mailtracker.model.postalitem.Event;
+import com.skyeng.mailtracker.service.EventService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+/**
+ * The type Event controller.
+ */
+@RestController
+@RequestMapping(&quot;/event&quot;)
+<span class="fc" id="L20">public class EventController {</span>
+    /**
+     * The Service.
+     */
+    @Autowired
+    EventService service;
+    /**
+     * The Logger.
+     */
+<span class="fc" id="L29">    Logger logger = LoggerFactory.getLogger(EventController.class);</span>
+
+    /**
+     * Gets postal item events.
+     *
+     * @param itemid the itemid
+     * @return the postal item events
+     */
+    @GetMapping
+    public ResponseEntity&lt;List&lt;Event&gt;&gt; getPostalItemEvents(@RequestParam Long itemid) {
+<span class="fc" id="L39">        var list = service.getEvents(itemid);</span>
+<span class="fc" id="L40">        return new ResponseEntity&lt;List&lt;Event&gt;&gt;(list, new HttpHeaders(), HttpStatus.OK);</span>
+    }
+
+    /**
+     * Gets postal item latest event.
+     *
+     * @param itemid the itemid
+     * @return the postal item latest event
+     */
+    @GetMapping(&quot;/item-status&quot;)
+    public ResponseEntity&lt;Event&gt; getPostalItemLatestEvent(@RequestParam Long itemid) {
+<span class="fc" id="L51">        var event = service.getLatestEvent(itemid);</span>
+<span class="fc" id="L52">        return new ResponseEntity&lt;Event&gt;(event, new HttpHeaders(), HttpStatus.OK);</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

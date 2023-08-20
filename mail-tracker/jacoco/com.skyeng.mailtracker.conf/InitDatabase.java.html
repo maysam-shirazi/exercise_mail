@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>InitDatabase.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mail-tracker</a> &gt; <a href="index.source.html" class="el_package">com.skyeng.mailtracker.conf</a> &gt; <span class="el_source">InitDatabase.java</span></div><h1>InitDatabase.java</h1><pre class="source lang-java linenums">package com.skyeng.mailtracker.conf;
+
+
+import com.skyeng.mailtracker.model.PostOffice;
+import com.skyeng.mailtracker.model.postalitem.Item;
+import com.skyeng.mailtracker.model.postalitem.ItemType;
+import com.skyeng.mailtracker.service.PostalItemService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+<span class="fc" id="L15">class InitDatabase {</span>
+
+<span class="fc" id="L17">    private static final Logger log = LoggerFactory.getLogger(InitDatabase.class);</span>
+
+    @Bean
+    CommandLineRunner init(PostalItemService service) {
+
+<span class="fc" id="L22">        return args -&gt; {</span>
+<span class="fc" id="L23">            log.info(&quot;init data  &quot; + service.register(Item.builder()</span>
+<span class="fc" id="L24">                    .recipientIndex(5432167890L)</span>
+<span class="fc" id="L25">                    .receiverName(&quot;Vladimir&quot;)</span>
+<span class="fc" id="L26">                    .recipientAddress(&quot;Volzhskiy Druzhby Ul bld 121 appt 160&quot;)</span>
+<span class="fc" id="L27">                    .postOffice(PostOffice.builder().id(1L).build())</span>
+<span class="fc" id="L28">                    .type(ItemType.builder().id(1L)</span>
+<span class="fc" id="L29">                            .build()).build()));</span>
+<span class="fc" id="L30">        };</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>

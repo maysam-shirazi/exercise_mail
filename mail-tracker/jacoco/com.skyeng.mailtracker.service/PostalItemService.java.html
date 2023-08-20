@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostalItemService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">mail-tracker</a> &gt; <a href="index.source.html" class="el_package">com.skyeng.mailtracker.service</a> &gt; <span class="el_source">PostalItemService.java</span></div><h1>PostalItemService.java</h1><pre class="source lang-java linenums">package com.skyeng.mailtracker.service;
+
+import com.skyeng.mailtracker.model.postalitem.EventType;
+import com.skyeng.mailtracker.model.postalitem.Item;
+import com.skyeng.mailtracker.repository.PostalItemRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.Optional;
+
+/**
+ * The type Postal item service.
+ */
+@Service
+<span class="fc" id="L17">public class PostalItemService {</span>
+    /**
+     * The Repository.
+     */
+    @Autowired
+    PostalItemRepository repository;
+    /**
+     * The Event service.
+     */
+    @Autowired
+    EventService eventService;
+    /**
+     * The PostOffice service.
+     */
+    @Autowired
+    PostOfficeService postOfficeService;
+    /**
+     * The Logger.
+     */
+<span class="fc" id="L36">    Logger logger = LoggerFactory.getLogger(PostalItemService.class);</span>
+
+    /**
+     * Register item.
+     *
+     * @param postalItem the postal item
+     * @return the item with id
+     */
+    public Item register(Item postalItem) {
+<span class="fc" id="L45">        var item = repository.save(postalItem);</span>
+<span class="fc" id="L46">        eventService.addEvent(item, EventType.EVENT_TYPE_ID_REGISTER);</span>
+<span class="fc" id="L47">        logger.info(&quot;Register item: {}&quot;, item);</span>
+<span class="fc" id="L48">        return item;</span>
+    }
+
+    /**
+     * Arrival item.
+     *
+     * @param itemId the item id
+     * @return the arrived item
+     */
+
+    public Item arrival(long itemId,long postOfficeId) {
+<span class="nc" id="L59">        var item = repository.findById(itemId);</span>
+<span class="nc" id="L60">        var postOffice = postOfficeService.getPostOffice(postOfficeId);</span>
+<span class="nc" id="L61">        logger.info(&quot;arrival item: {}&quot;, itemId);</span>
+<span class="nc" id="L62">        Item pitem = null;</span>
+<span class="nc bnc" id="L63" title="All 4 branches missed.">        if (item.isPresent()&amp;&amp;postOffice.isPresent()) {</span>
+<span class="nc" id="L64">            pitem = item.get();</span>
+<span class="nc" id="L65">            pitem.setPostOffice(postOffice.get());</span>
+<span class="nc" id="L66">            repository.save(pitem);</span>
+<span class="nc" id="L67">            eventService.addEvent(pitem, EventType.EVENT_TYPE_ID_ARRIVED);</span>
+        }
+<span class="nc" id="L69">        return pitem;</span>
+    }
+
+    /**
+     * Departure item.
+     *
+     * @param itemId the item id
+     * @return the departured item
+     */
+
+    public Item departure(long itemId) {
+<span class="fc" id="L80">        var item = repository.findById(itemId);</span>
+<span class="fc" id="L81">        logger.info(&quot;departure item: {}&quot;, itemId);</span>
+<span class="fc" id="L82">        Item pitem = null;</span>
+<span class="pc bpc" id="L83" title="1 of 2 branches missed.">        if (item.isPresent()) {</span>
+<span class="fc" id="L84">            pitem = item.get();</span>
+<span class="fc" id="L85">            repository.save(pitem);</span>
+<span class="fc" id="L86">            eventService.addEvent(pitem, EventType.EVENT_TYPE_ID_DEPARTED);</span>
+        }
+<span class="fc" id="L88">        return pitem;</span>
+    }
+
+    /**
+     * Deliver item.
+     *
+     * @param itemId the item id
+     * @return the delivered item
+     */
+//TODO: add the receipt model to post item for delivery
+    public Item deliver(long itemId) {
+<span class="fc" id="L99">        var item = repository.findById(itemId);</span>
+<span class="fc" id="L100">        logger.info(&quot;deliver item: {}&quot;, itemId);</span>
+<span class="pc bpc" id="L101" title="1 of 2 branches missed.">        if (item.isPresent()) {</span>
+<span class="fc" id="L102">            eventService.addEvent(item.get(), EventType.EVENT_TYPE_ID_DELIVERED);</span>
+        }
+<span class="fc" id="L104">        return item.get();</span>
+    }
+
+    /**
+     * Gets item.
+     *
+     * @param id the id
+     * @return the item
+     */
+    public Optional&lt;Item&gt; getItem(Long id) {
+<span class="fc" id="L114">        var item = repository.findById(id);</span>
+<span class="fc" id="L115">        return item;</span>
+    }
+
+    /**
+     * Add item item.
+     *
+     * @param postalItem the postal item
+     * @return the item
+     */
+    public Item addItem(Item postalItem) {
+<span class="fc" id="L125">        logger.info(&quot;addItem item: {}&quot;, postalItem);</span>
+<span class="fc" id="L126">        return repository.save(postalItem);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.10.202304240956</span></div></body></html>
